@@ -1,0 +1,21 @@
+[{
+    "id": 1,
+    "name": "BIKE",
+    "img": "https://i.ibb.co/jMMRDgm/Frame.png",
+    "vehicle-details": "Boa, mexican"
+  }, {
+    "id": 2,
+    "name": "CAR",
+    "img": "https://i.ibb.co/7WcZx8K/Frame-2.png",
+    "vehicle-details": "Vulture, bengal"
+  }, {
+    "id": 3,
+    "name": "BUS",
+    "img": "https://i.ibb.co/n66kGdd/Frame-1.png",
+    "vehicle-details": "Little grebe"
+  }, {
+    "id": 4,
+    "name": "TRAIN",
+    "img": "https://i.ibb.co/8zkmj4d/Group.png",
+    "vehicle-details": "Goliath heron"
+  }]
