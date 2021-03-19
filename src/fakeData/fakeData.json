@@ -2,20 +2,33 @@
     "id": 1,
     "name": "BIKE",
     "img": "https://i.ibb.co/jMMRDgm/Frame.png",
-    "vehicle-details": "Boa, mexican"
+    "sit": "2",
+    "ridingPrice": 60,
+    "img1": "https://i.ibb.co/VLVnpXC/20200219112126-bike-404-removebg-preview.png",
+    "img2": "https://i.ibb.co/vzT7Vg3/download-1-removebg-preview.png",
+    "img3": "https://i.ibb.co/VMSnD4S/download-2-removebg-preview.png"
   }, {
     "id": 2,
     "name": "CAR",
     "img": "https://i.ibb.co/7WcZx8K/Frame-2.png",
-    "vehicle-details": "Vulture, bengal"
+    "sit": "4",
+    "ridingPrice": 50,
+    "img1": "https://i.ibb.co/ZKrZwrk/economy-removebg-preview.png",
+    "img2": "https://i.ibb.co/6vdzPTW/ezgif-4-82beb23c3cd4-removebg-preview.png",
+    "img3": "https://i.ibb.co/4tw4dZr/marazzo-exterior-right-front-three-quarter-4-removebg-preview.png"
   }, {
     "id": 3,
     "name": "BUS",
     "img": "https://i.ibb.co/n66kGdd/Frame-1.png",
-    "vehicle-details": "Little grebe"
+    "sit": "20",
+    "ridingPrice": 40,
+    "img1": "https://i.ibb.co/n1NPVnW/download-3.jpg",
+    "img2": "https://i.ibb.co/Bc074w6/download-4.jpg",
+    "img3": "https://i.ibb.co/6DPPDKz/images.png"
   }, {
     "id": 4,
     "name": "TRAIN",
     "img": "https://i.ibb.co/8zkmj4d/Group.png",
-    "vehicle-details": "Goliath heron"
+    "sit": "60",
+    "ridingPrice": 30
   }]

@@ -6,8 +6,10 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/Home/Home";
-import Destination from "./components/Destination/Destination";
+import DestinationContainer from "./components/DestinationContainer/DestinationContainer";
 import NoMatch from "./components/NoMatch/NoMatch";
+import LogIn from "./components/LogIn/LogIn";
+import RegistrationPage from "./components/RegistrationPage/RegistrationPage";
 
 function App() {
   return (
@@ -19,8 +21,14 @@ function App() {
         <Route path="/home">
           <Home />
         </Route>
-        <Route path="/destination">
-          <Destination />
+        <Route path="/destination/:vehicleName">
+          <DestinationContainer />
+        </Route>
+        <Route path="/login">
+          <LogIn />
+        </Route>
+        <Route path="/registration">
+          <RegistrationPage />
         </Route>
         <Route path="*">
           <NoMatch />
