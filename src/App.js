@@ -10,32 +10,37 @@ import DestinationContainer from "./components/DestinationContainer/DestinationC
 import NoMatch from "./components/NoMatch/NoMatch";
 import LogIn from "./components/LogIn/LogIn";
 import RegistrationPage from "./components/RegistrationPage/RegistrationPage";
+import { createContext, useState } from "react";
+export const UserContext = createContext();
 
 function App() {
+  const [userInfo, setUserInfo] = useState({});
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/home">
-          <Home />
-        </Route>
-        <Route path="/destination/:vehicleName">
-          <DestinationContainer />
-        </Route>
-        <Route path="/login">
-          <LogIn />
-        </Route>
-        <Route path="/registration">
-          <RegistrationPage />
-        </Route>
-        <Route path="*">
-          <NoMatch />
-        </Route>
-      </Switch>
-      
-    </Router>
+    <UserContext.Provider value={[userInfo, setUserInfo]}>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/home">
+            <Home />
+          </Route>
+          <Route path="/destination/:vehicleName">
+            <DestinationContainer />
+          </Route>
+          <Route path="/login">
+            <LogIn />
+          </Route>
+          <Route path="/registration">
+            <RegistrationPage />
+          </Route>
+          <Route path="*">
+            <NoMatch />
+          </Route>
+        </Switch>
+        
+      </Router>
+    </UserContext.Provider>
   );
 }
 
