@@ -9,10 +9,10 @@ const DestinationContainer = () => {
     useEffect(() => {
         const vehicleInfo = fakeData.filter(data => data.name === vehicleName)
         setVehicleData(vehicleInfo);
-    }, [])
+    }, [vehicleName])
     return (
 
-        vehicleData.map(vehicleInfo => <DestinationInfo vehicleInfo={vehicleInfo}></DestinationInfo>)
+        vehicleData.map(vehicleInfo => <DestinationInfo key={vehicleInfo.id} vehicleInfo={vehicleInfo}></DestinationInfo>)
     );
 };
 
