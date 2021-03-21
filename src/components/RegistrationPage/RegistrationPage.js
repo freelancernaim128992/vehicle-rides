@@ -95,18 +95,12 @@ const RegistrationPage = () => {
         firebase
         .auth()
         .signInWithPopup(facebookProvider)
-        .then((result) => {
-            /** @type {firebase.auth.OAuthCredential} */
-            var credential = result.credential;
-
-            // The signed-in user info.
-            var user = result.user;
-
-            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-            var accessToken = credential.accessToken;
-
-            // ...
-            console.log(result)
+        .then((res) => {
+            const newUser ={...user};
+            newUser.name = res.additionalUserInfo.profile.name;
+            newUser.email = res.user.email;
+            setUserInfo(newUser)
+            history.replace(from);
         })
         .catch((error) => {
             // Handle Errors here.
@@ -128,8 +122,6 @@ const RegistrationPage = () => {
         <div className="container mt-5 pt-3">
             <form onSubmit={handleSubmit} className="p-3 mx-auto shadow" style={{width: '500px'}}>
                 <h2>Create an account</h2>
-                <p>email: {user.email}</p>
-                <p>Password: {user.password}</p>
                 <div className="mb-3">
                     <p>Name</p>
                     <input type="text" className="form-control" required/>
@@ -154,8 +146,8 @@ const RegistrationPage = () => {
             </form>
             {user.success && <p className="text-success text-center my-3">User Created Successfully</p>}
             <p className="text-center mt-4">OR</p>
-            <div className="my-3 text-center">
-                <button onClick={handleFacebook} className="border-0 bg-white">Continue With Facebook</button> 
+            <div className="my-3 mx-auto bg-white border w-25">
+                <button onClick={handleFacebook} className="border-0 bg-white text-center w-100 p-2">Continue With Facebook</button> 
             </div>
             <div className="text-center">
                 <button onClick={handleGoogle}>Continue With Google</button>
