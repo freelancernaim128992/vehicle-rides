@@ -5,6 +5,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from '../../firebaseConfig';
 import { UserContext } from '../../App';
+import googleIcon from '../../images/google-icon.png'
+import facebookIcon from '../../images/facebook-icon.png'
 
 firebase.initializeApp(firebaseConfig);
 
@@ -53,6 +55,7 @@ const RegistrationPage = () => {
                 const newUser = {...user}
                 newUser.error = '';
                 newUser.success = true;
+                newUser.isSigned = true;
                 setUser(newUser)
                 setUserInfo(newUser);
                 history.replace(from)
@@ -75,6 +78,7 @@ const RegistrationPage = () => {
         const newUser ={...user};
         newUser.name = res.additionalUserInfo.profile.name;
         newUser.email = res.user.email;
+        newUser.isSigned = true;
         setUserInfo(newUser)
         history.replace(from);
     }).catch((error) => {
@@ -99,6 +103,7 @@ const RegistrationPage = () => {
             const newUser ={...user};
             newUser.name = res.additionalUserInfo.profile.name;
             newUser.email = res.user.email;
+            newUser.isSigned = true;
             setUserInfo(newUser)
             history.replace(from);
         })
@@ -146,11 +151,11 @@ const RegistrationPage = () => {
             </form>
             {user.success && <p className="text-success text-center my-3">User Created Successfully</p>}
             <p className="text-center mt-4">OR</p>
-            <div className="my-3 mx-auto bg-white border w-25">
-                <button onClick={handleFacebook} className="border-0 bg-white text-center w-100 p-2">Continue With Facebook</button> 
+            <div className="my-3 mx-auto bg-white border w-25 rounded overflow-hidden">
+                <img style={{width: '30px',float: 'left',marginTop: '5px'}} src={facebookIcon} alt=""/><button style={{width: '240px', float:'right'}} onClick={handleFacebook} className="border-0 bg-white text-center p-2">Continue With Facebook</button> 
             </div>
-            <div className="text-center">
-                <button onClick={handleGoogle}>Continue With Google</button>
+            <div className="my-3 mx-auto bg-white border w-25 rounded overflow-hidden">
+                <img style={{width: '30px',float: 'left',marginTop: '5px'}} src={googleIcon} alt=""/><button style={{width: '240px', float:'right'}} onClick={handleGoogle} className="border-0 bg-white text-center p-2">Continue With Google</button> 
             </div>
 
         </div>

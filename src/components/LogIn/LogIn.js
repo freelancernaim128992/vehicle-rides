@@ -3,12 +3,16 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import firebase from "firebase/app";
 import Header from '../Header/Header';
 import { UserContext } from '../../App';
+import googleIcon from '../../images/google-icon.png'
+import facebookIcon from '../../images/facebook-icon.png'
 
 const LogIn = () => {
     const [userInfo, setUserInfo] = useContext(UserContext);
     const [loginUser, setLoginUser] = useState({
+        name: '',
         email: '',
-        password: ''
+        password: '',
+        isSigned: false
     });
 
     const history = useHistory();
@@ -33,8 +37,8 @@ const LogIn = () => {
             firebase.auth().signInWithEmailAndPassword(loginUser.email, loginUser.password)
             .then((userCredential) => {
                 const newUser = {...loginUser}
+                newUser.isSigned = true;
                 setUserInfo(newUser)
-                console.log(newUser)
                 history.replace(from);
             })
             .catch((error) => {
@@ -44,6 +48,56 @@ const LogIn = () => {
             });
         }
         event.preventDefault();
+    }
+    // Facebook Registration 
+    const facebookProvider = new firebase.auth.FacebookAuthProvider();
+    const handleFacebook = () => {
+        firebase
+        .auth()
+        .signInWithPopup(facebookProvider)
+        .then((res) => {
+            const newUser ={...loginUser};
+            newUser.name = res.additionalUserInfo.profile.name;
+            newUser.email = res.user.email;
+            newUser.isSigned = true;
+            setUserInfo(newUser)
+            history.replace(from);
+        })
+        .catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+
+            // ...
+            console.log(errorMessage)
+        });
+    }
+    // Registration with google
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    const handleGoogle = () => {
+    firebase.auth()
+    .signInWithPopup(googleProvider)
+    .then((res) => {
+        const newUser ={...loginUser};
+        newUser.name = res.additionalUserInfo.profile.name;
+        newUser.email = res.user.email;
+        newUser.isSigned = true;
+        setUserInfo(newUser)
+        history.replace(from);
+    }).catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+    });
     }
     return (
         <>
@@ -66,11 +120,11 @@ const LogIn = () => {
                 <p className="text-center">Don't you have an account? <Link to="/registration">Create an account</Link></p>
             </form>
             <p className="text-center mt-4">OR</p>
-            <div className="my-3 text-center">
-                <button className="border-0 bg-white">Continue With Facebook</button> 
+            <div className="my-3 mx-auto bg-white border w-25 rounded overflow-hidden">
+                <img style={{width: '30px',float: 'left',marginTop: '5px'}} src={facebookIcon} alt=""/><button style={{width: '240px', float:'right'}} onClick={handleFacebook} className="border-0 bg-white text-center p-2">Continue With Facebook</button> 
             </div>
-            <div className="text-center">
-                <button>Continue With Google</button>
+            <div className="my-3 mx-auto bg-white border w-25 rounded overflow-hidden">
+                <img style={{width: '30px',float: 'left',marginTop: '5px'}} src={googleIcon} alt=""/><button style={{width: '240px', float:'right'}} onClick={handleGoogle} className="border-0 bg-white text-center p-2">Continue With Google</button> 
             </div>
 
         </div>

@@ -15,7 +15,6 @@ export const UserContext = createContext();
 
 function App() {
   const [userInfo, setUserInfo] = useState({});
-  console.log(userInfo)
   return (
     <UserContext.Provider value={[userInfo, setUserInfo]}>
       <Router>

@@ -30,5 +30,9 @@
     "name": "TRAIN",
     "img": "https://i.ibb.co/8zkmj4d/Group.png",
     "sit": "60",
-    "ridingPrice": 30
+    "ridingPrice": 30,
+    "img1": "https://i.ibb.co/8zkmj4d/Group.png",
+    "img2": "https://i.ibb.co/8zkmj4d/Group.png",
+    "img3": "https://i.ibb.co/8zkmj4d/Group.png"
+
   }]

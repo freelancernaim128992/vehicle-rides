@@ -5,15 +5,14 @@ import DestinationInfo from '../DestinationInfo/DestinationInfo';
 
 const DestinationContainer = () => {
     const {vehicleName} = useParams();
-    const [vehicleInfo, setVehicleInfo] = useState({});
+    const [vehicleData, setVehicleData] = useState([]);
     useEffect(() => {
-        const vehicleData = fakeData.filter(data => data.name === vehicleName)
-        setVehicleInfo(vehicleData);
+        const vehicleInfo = fakeData.filter(data => data.name === vehicleName)
+        setVehicleData(vehicleInfo);
     }, [])
     return (
-        <div>
-            <DestinationInfo vehicleInfo={vehicleInfo}></DestinationInfo>
-        </div>
+
+        vehicleData.map(vehicleInfo => <DestinationInfo vehicleInfo={vehicleInfo}></DestinationInfo>)
     );
 };
 
