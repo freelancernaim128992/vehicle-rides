@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -18,6 +18,9 @@ const RegistrationPage = () => {
         success: false,
         isSigned: false
     })
+    const history = useHistory();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
 
     const [userInfo, setUserInfo] = useContext(UserContext);
     let isInputValid;
@@ -52,6 +55,7 @@ const RegistrationPage = () => {
                 newUser.success = true;
                 setUser(newUser)
                 setUserInfo(newUser);
+                history.replace(from)
             })
             .catch((error) => {
                 const newUser = {...user}
@@ -61,6 +65,63 @@ const RegistrationPage = () => {
         }
         event.preventDefault();
     }
+
+    // Registration with google
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    const handleGoogle = () => {
+    firebase.auth()
+    .signInWithPopup(googleProvider)
+    .then((res) => {
+        const newUser ={...user};
+        newUser.name = res.additionalUserInfo.profile.name;
+        newUser.email = res.user.email;
+        setUserInfo(newUser)
+        history.replace(from);
+    }).catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+    });
+    }
+
+    // Facebook Registration 
+    const facebookProvider = new firebase.auth.FacebookAuthProvider();
+    const handleFacebook = () => {
+        firebase
+        .auth()
+        .signInWithPopup(facebookProvider)
+        .then((result) => {
+            /** @type {firebase.auth.OAuthCredential} */
+            var credential = result.credential;
+
+            // The signed-in user info.
+            var user = result.user;
+
+            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            var accessToken = credential.accessToken;
+
+            // ...
+            console.log(result)
+        })
+        .catch((error) => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+
+            // ...
+            console.log(errorMessage)
+        });
+    }
+
     return (
         <>
         <Header></Header>
@@ -94,10 +155,10 @@ const RegistrationPage = () => {
             {user.success && <p className="text-success text-center my-3">User Created Successfully</p>}
             <p className="text-center mt-4">OR</p>
             <div className="my-3 text-center">
-                <button className="border-0 bg-white">Continue With Facebook</button> 
+                <button onClick={handleFacebook} className="border-0 bg-white">Continue With Facebook</button> 
             </div>
             <div className="text-center">
-                <button>Continue With Google</button>
+                <button onClick={handleGoogle}>Continue With Google</button>
             </div>
 
         </div>

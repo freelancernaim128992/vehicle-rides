@@ -1,8 +1,7 @@
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./components/Home/Home";
@@ -11,10 +10,12 @@ import NoMatch from "./components/NoMatch/NoMatch";
 import LogIn from "./components/LogIn/LogIn";
 import RegistrationPage from "./components/RegistrationPage/RegistrationPage";
 import { createContext, useState } from "react";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 export const UserContext = createContext();
 
 function App() {
   const [userInfo, setUserInfo] = useState({});
+  console.log(userInfo)
   return (
     <UserContext.Provider value={[userInfo, setUserInfo]}>
       <Router>
@@ -25,9 +26,9 @@ function App() {
           <Route path="/home">
             <Home />
           </Route>
-          <Route path="/destination/:vehicleName">
+          <PrivateRoute path="/destination/:vehicleName">
             <DestinationContainer />
-          </Route>
+          </PrivateRoute>
           <Route path="/login">
             <LogIn />
           </Route>

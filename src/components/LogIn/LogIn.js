@@ -1,15 +1,19 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { UserContext } from '../../App';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import firebase from "firebase/app";
 import Header from '../Header/Header';
+import { UserContext } from '../../App';
 
 const LogIn = () => {
-    // const [userInfo, setUserInfo] = useContext(UserContext);
+    const [userInfo, setUserInfo] = useContext(UserContext);
     const [loginUser, setLoginUser] = useState({
         email: '',
         password: ''
     });
+
+    const history = useHistory();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/" } };
     const handleBlur = (event) => {
         if(event.target.name === "email"){
             const email = event.target.value
@@ -28,11 +32,15 @@ const LogIn = () => {
         if(loginUser.email && loginUser.password){
             firebase.auth().signInWithEmailAndPassword(loginUser.email, loginUser.password)
             .then((userCredential) => {
-                
+                const newUser = {...loginUser}
+                setUserInfo(newUser)
+                console.log(newUser)
+                history.replace(from);
             })
             .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
+                console.log(errorMessage)
             });
         }
         event.preventDefault();
